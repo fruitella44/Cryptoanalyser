@@ -14,8 +14,6 @@ public class Cipher {
                 int changedAlphabet = (originalAlphabet + pullRight) % 32;
                 char newSymbols = (char) ('а' + changedAlphabet);
                 builder.append(newSymbols);
-            } else {
-                builder.append(symbols);
             }
         }
 
