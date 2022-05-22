@@ -1,5 +1,7 @@
 package ua.com.javarush.darvin.module1;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,33 +21,19 @@ public class Main {
 
     }
 
-    private static String scanner () throws IOException {
-        try (Scanner console = new Scanner(System.in)) {
+    private static String scanner () {
+        Scanner console = new Scanner(System.in);
+        String line = console.nextLine();
 
-            while (true) {
-                Path path = Path.of(console.nextLine());
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(path)))) {
 
-                if (Files.notExists(path)) {
-                    Files.createFile(path);
-                } else if (!Files.isRegularFile(path)) {
-                    System.out.println("Некорректный файл");
-                    continue;
-                } else if (!Files.isDirectory(path)) {
-                    System.out.println("Некорректно указана директория");
-                    continue;
-                } else if (Files.exists(path)) {
-                    Path newPath = Path.of("newFile");
-                    Files.createFile(newPath);
-                    Files.move(path, newPath);
-                    continue;
-                } else { break; }
-            }
-
-        } catch (Exception exception) {
-            System.out.println("Не удалось прочитать файл " + exception);
+            bufferedWriter.write(line);
+            bufferedWriter.newLine();
+        } catch (IOException exception) {
+            System.out.println("Не удалось прочитать текст " + exception);
         }
 
-        String write = Files.readString(path);
-        return write;
+        
+        return line;
     }
 }
