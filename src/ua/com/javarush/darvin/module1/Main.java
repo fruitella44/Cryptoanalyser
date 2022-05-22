@@ -29,6 +29,7 @@ public class Main {
 
             bufferedWriter.write(line);
             bufferedWriter.newLine();
+            bufferedWriter.flush();
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
         }
