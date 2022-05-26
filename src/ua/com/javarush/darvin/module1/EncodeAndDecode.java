@@ -7,24 +7,28 @@ import java.util.Scanner;
 public class EncodeAndDecode {
     private static String alphabet  = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,«»\"\\:!? ";
 
-    String encode(String inputText, int key) {
-        inputText = inputText.toLowerCase();
-        String str = "";
+    StringBuilder encode(String line, int key) throws IOException {
+        StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
+
+        StringBuilder outputText = new StringBuilder();
+
         for (int i = 0; i < inputText.length(); i++) {
             int index = alphabet.indexOf(inputText.charAt(i));
             int shiftIndex = (index + key) % 43;
             char encoding = alphabet.charAt(shiftIndex);
-            str = str + encoding;
+            outputText.append(encoding);
         }
 
-        return str;
+        return outputText;
     }
 
-    String decode(String cText, int key) {
-        cText = cText.toLowerCase();
-        String pText = "";
-        for (int i = 0; i < cText.length(); i++) {
-            int index = alphabet.indexOf(cText.charAt(i));
+    StringBuilder decode(String line, int key) {
+        StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
+
+        StringBuilder outputText = new StringBuilder();
+
+        for (int i = 0; i < inputText.length(); i++) {
+            int index = alphabet.indexOf(inputText.charAt(i));
             int shiftIndexBack = (index - key) % 43;
 
             if (shiftIndexBack < 0) {
@@ -32,9 +36,10 @@ public class EncodeAndDecode {
             }
 
             char newChars = alphabet.charAt(shiftIndexBack);
-            pText = pText + newChars;
+            outputText.append(newChars);
+
         }
 
-        return pText;
+        return outputText;
     }
 }

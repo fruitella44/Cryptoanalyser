@@ -11,90 +11,98 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
-
-        if (start) {
-            System.out.println("Запуск программы!\n___________________________");
-            System.out.println("Выберите действие:");
-            System.out.println("1 - шифровка текста");
-            System.out.println("2 - расшифровка текста");
-            System.out.println("3 - расшифровка с помощью brute force\n___________________________");
-            main.scannerInt();
-        } else {
-            System.out.println("Ошибка запуска!");
-        }
+        main.scannerInt();
 
     }
 
-    private int scannerInt() {
+    private int scannerInt() throws InputMismatchException {
         Scanner console = new Scanner(System.in);
+
+        System.out.println("Запуск программы!\n___________________________");
+        System.out.println("Выберите действие:");
+        System.out.println("1 - шифровка текста");
+        System.out.println("2 - расшифровка текста");
+        System.out.println("3 - расшифровка с помощью brute force");
+        System.out.println("0 - Выход\n___________________________");
+
         int input = console.nextInt();
 
         try {
             if (start) {
                 if (input == 1) {
-                    System.out.println("Введите текст:");
+                    System.out.println("Укажите путь к файлу:");
                     scannerStringEncode();
                 } else if (input == 2) {
-                    System.out.println("Введите текст:");
+                    System.out.println("Укажите путь к файлу:");
                     scannerStringDecode();
                 } else if (input == 3) {
                     System.out.println("Укажите путь к файлу:");
-                    readFile();
+                } else if (input == 0) {
+                    System.out.println("Выход");
                 } else {
                     System.out.println("Неверная команда");
                     start = false;
                 }
             }
-        } catch (InputMismatchException exception) {
-            System.out.println("Требуется ввести число! " + exception);
+        } catch (Exception exception) {
+            System.out.println("Требуется ввести число!");
         }
         return input;
     }
 
-    private String scannerStringEncode() {
+    private static boolean scannerStringEncode() {
         EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
+        Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\outputText.txt");
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("OutputText.txt"))) {
 
-            bufferedWriter.write(encodeAndDecode.encode(line, 3));
-            bufferedWriter.newLine();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+
+            bufferedWriter.append(encodeAndDecode.encode(line, 3));
             bufferedWriter.flush();
+            return true;
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
         }
 
-       return line;
+       return false;
     }
 
-    private String scannerStringDecode() {
+    private static boolean scannerStringDecode() {
         EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
+        Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt");
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("OutputText.txt"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
 
-            bufferedWriter.write(encodeAndDecode.decode(line, 3));
-            bufferedWriter.newLine();
+            bufferedWriter.append(encodeAndDecode.decode(line, 3));
             bufferedWriter.flush();
+            return true;
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
         }
 
-        return line;
+        return false;
     }
 
-    private String readFile() {
-        try (FileReader fileReader = new FileReader("InputText");
-             BufferedReader reader = new BufferedReader(fileReader)) {
+    public static StringBuilder readFile(String path) {
+        StringBuilder builder = new StringBuilder();
 
-            return reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+
+            while(reader.ready()) {
+                builder.append(reader.readLine());
+                builder.append("\n");
+            }
+
+            builder.deleteCharAt(builder.length() - 1);
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать файл " + exception);
             return null;
         }
+        return builder;
     }
 }
 
