@@ -30,13 +30,13 @@ public class Main {
         try {
             if (start) {
                 if (input == 1) {
-                    System.out.println("Укажите путь к файлу:");
+                    System.out.println("___________________________\nУкажите путь к файлу:");
                     scannerStringEncode();
                 } else if (input == 2) {
-                    System.out.println("Укажите путь к файлу:");
+                    System.out.println("___________________________\nУкажите путь к файлу:");
                     scannerStringDecode();
                 } else if (input == 3) {
-                    System.out.println("Укажите путь к файлу:");
+                    System.out.println("___________________________\nУкажите путь к файлу:");
                 } else if (input == 0) {
                     System.out.println("Выход!\n___________________________");
                 } else {
@@ -59,7 +59,7 @@ public class Main {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
 
-            System.out.println("Введите номер ключа:");
+            System.out.println("___________________________\nВведите номер ключа:");
             bufferedWriter.append(encodeAndDecode.encode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
@@ -78,7 +78,7 @@ public class Main {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
 
-            System.out.println("Введите номер ключа:");
+            System.out.println("___________________________\nВведите номер ключа:");
             bufferedWriter.append(encodeAndDecode.decode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
