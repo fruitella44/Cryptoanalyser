@@ -38,7 +38,7 @@ public class Main {
                 } else if (input == 3) {
                     System.out.println("Укажите путь к файлу:");
                 } else if (input == 0) {
-                    System.out.println("Выход");
+                    System.out.println("Выход!\n___________________________");
                 } else {
                     System.out.println("Неверная команда");
                     start = false;
@@ -59,7 +59,8 @@ public class Main {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
 
-            bufferedWriter.append(encodeAndDecode.encode(line, 3));
+            System.out.println("Введите номер ключа:");
+            bufferedWriter.append(encodeAndDecode.encode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
         } catch (IOException exception) {
@@ -77,7 +78,8 @@ public class Main {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
 
-            bufferedWriter.append(encodeAndDecode.decode(line, 3));
+            System.out.println("Введите номер ключа:");
+            bufferedWriter.append(encodeAndDecode.decode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
         } catch (IOException exception) {
