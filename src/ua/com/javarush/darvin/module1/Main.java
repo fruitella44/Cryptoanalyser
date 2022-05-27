@@ -31,12 +31,13 @@ public class Main {
             if (start) {
                 if (input == 1) {
                     System.out.println("___________________________\nУкажите путь к файлу:");
-                    scannerStringEncode();
+                    scannerEncode();
                 } else if (input == 2) {
                     System.out.println("___________________________\nУкажите путь к файлу:");
-                    scannerStringDecode();
+                    scannerDecode();
                 } else if (input == 3) {
                     System.out.println("___________________________\nУкажите путь к файлу:");
+                    scannerBruteForce();
                 } else if (input == 0) {
                     System.out.println("Выход!\n___________________________");
                 } else {
@@ -50,7 +51,7 @@ public class Main {
         return input;
     }
 
-    private static boolean scannerStringEncode() {
+    private static boolean scannerEncode() {
         EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
@@ -70,7 +71,7 @@ public class Main {
        return false;
     }
 
-    private static boolean scannerStringDecode() {
+    private static boolean scannerDecode() {
         EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
@@ -89,12 +90,31 @@ public class Main {
         return false;
     }
 
+    private static boolean scannerBruteForce() {
+        EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
+        Scanner console = new Scanner(System.in);
+        String line = console.nextLine();
+        Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt");
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+
+            //System.out.println("___________________________\nВведите номер ключа:");
+            bufferedWriter.append(encodeAndDecode.bruteForce(line));
+            bufferedWriter.flush();
+            return true;
+        } catch (IOException exception) {
+            System.out.println("Не удалось прочитать текст " + exception);
+        }
+
+        return false;
+    }
+
     public static StringBuilder readFile(String path) {
         StringBuilder builder = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
 
-            while(reader.ready()) {
+            while (reader.ready()) {
                 builder.append(reader.readLine());
                 builder.append("\n");
             }
