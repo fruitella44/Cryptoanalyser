@@ -2,11 +2,17 @@ package ua.com.javarush.darvin.module1;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EncodeAndDecode {
     private static String alphabet  = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,«»\"\\:!? ";
-    private char[] decodeBruteForce;
+    private static Character[] charAlphabet = {'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з',
+            'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ',
+            'ъ', 'ы', 'ь', 'э', 'ю', 'я', '.', ',', '«', '»', '"', '\'', ':', '!', '?', ' '};
+    private char[] decodeText;
+    private String[] outputText;
+    private List<Character> listAlphabet;
 
     StringBuilder encode(String line, int key) throws IOException {
         StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
@@ -44,26 +50,28 @@ public class EncodeAndDecode {
         return outputText;
     }
 
-    CharSequence bruteForce(String line) {
-        List<Character> listAlphabet = new ArrayList<>();
-        StringBuilder builder = new StringBuilder(Main.readFile(line).toString().toLowerCase());
-        String str = builder.toString();
-        String [] outputText = new String[0];
-        char[] inputText = str.toCharArray();
-        char[] charAlphabet = alphabet.toCharArray();
+    public EncodeAndDecode() {
+        listAlphabet = Arrays.asList(charAlphabet);
+        outputText = new String[charAlphabet.length];
+    }
+
+    String bruteForce(String line) {
+        char[] inputText = line.toLowerCase().toCharArray();
 
         for (int key = 0; key < charAlphabet.length; key++) {
-            decodeBruteForce = new char[inputText.length];
+            decodeText = new char[inputText.length];
 
-            for (int j = 0; j < inputText.length; j++) {
-                if (inputText[j] != ' ') {
-                    decodeBruteForce[j] = charAlphabet[listAlphabet.indexOf(inputText[j] + key) % charAlphabet.length];
+            for (int i = 0; i < inputText.length; i++) {
+                if (inputText[i] != ' ') {
+                    decodeText[i] = charAlphabet[listAlphabet.indexOf(inputText[i] + key) % charAlphabet.length];
                 } else {
-                    decodeBruteForce[j] = ' ';
+                    decodeText[i] = ' ';
                 }
             }
-            outputText[key] = String.valueOf(decodeBruteForce);
+            outputText[key] = String.valueOf(decodeText);
         }
-        return outputText.toString();
+
+//        return outputText.toString();
+        return "brute";
     }
 }

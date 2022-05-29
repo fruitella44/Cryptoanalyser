@@ -36,7 +36,7 @@ public class Main {
                     System.out.println("___________________________\nУкажите путь к файлу:");
                     scannerDecode();
                 } else if (input == 3) {
-                    System.out.println("___________________________\nУкажите путь к файлу:");
+                    //System.out.println("___________________________\nУкажите путь к файлу:");
                     scannerBruteForce();
                 } else if (input == 0) {
                     System.out.println("Выход!\n___________________________");
@@ -96,13 +96,24 @@ public class Main {
         String line = console.nextLine();
         Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt");
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
-
-            //System.out.println("___________________________\nВведите номер ключа:");
-            bufferedWriter.append(encodeAndDecode.bruteForce(line));
-            bufferedWriter.flush();
-            return true;
-        } catch (IOException exception) {
+//        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)));
+//        BufferedReader bufferedReader = new BufferedReader(new FileReader(String.valueOf(readFile)))) {
+//
+//            while ((line = bufferedReader.readLine()) != null) {
+////                System.out.println(line + "\n");
+//                bufferedWriter.append(encodeAndDecode.bruteForce(line));
+//            }
+//            bufferedWriter.flush();
+//            return true;
+//        }
+        try (BufferedReader reader = new BufferedReader(new FileReader(line))) {
+            try (BufferedWriter writter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+//                String line;
+                while (!(line = reader.readLine()).equals("exit")) { // Прерывание цикла при написании строки exit
+                    writter.write(line);
+                }
+            }
+        }catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
         }
 
