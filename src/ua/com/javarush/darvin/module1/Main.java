@@ -46,22 +46,20 @@ public class Main {
                 }
             }
         } catch (InputMismatchException exception) {
-            System.out.println("Требуется ввести число!");
+            System.out.println("Требуется ввести число! " + exception);
         }
         return input;
     }
 
     private static boolean scannerEncode() {
-        EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
+        Encode encrypt = new Encode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
-        Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\outputText.txt");
 
-
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\Coding\\Java\\javarush-cryptoanalyser\\outputText.txt"))) {
 
             System.out.println("___________________________\nВведите номер ключа:");
-            bufferedWriter.append(encodeAndDecode.encode(line, console.nextInt()));
+            bufferedWriter.append(encrypt.encode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
         } catch (IOException exception) {
@@ -72,15 +70,14 @@ public class Main {
     }
 
     private static boolean scannerDecode() {
-        EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
+        Decode decrypt = new Decode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
-        Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt");
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt"))) {
 
             System.out.println("___________________________\nВведите номер ключа:");
-            bufferedWriter.append(encodeAndDecode.decode(line, console.nextInt()));
+            bufferedWriter.append(decrypt.decode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
         } catch (IOException exception) {
@@ -91,14 +88,13 @@ public class Main {
     }
 
     private static boolean scannerBruteForce() {
-        EncodeAndDecode encodeAndDecode = new EncodeAndDecode();
+        BruteForce brute = new BruteForce();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
-        Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt");
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt"))) {
 
-            bufferedWriter.append(encodeAndDecode.bruteForce(line));
+            bufferedWriter.append(brute.bruteForce(line, 1));
             bufferedWriter.flush();
             return true;
         }catch (IOException exception) {
