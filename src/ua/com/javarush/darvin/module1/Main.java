@@ -96,23 +96,12 @@ public class Main {
         String line = console.nextLine();
         Path writeFile = Path.of("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt");
 
-//        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)));
-//        BufferedReader bufferedReader = new BufferedReader(new FileReader(String.valueOf(readFile)))) {
-//
-//            while ((line = bufferedReader.readLine()) != null) {
-////                System.out.println(line + "\n");
-//                bufferedWriter.append(encodeAndDecode.bruteForce(line));
-//            }
-//            bufferedWriter.flush();
-//            return true;
-//        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(line))) {
-            try (BufferedWriter writter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
-//                String line;
-                while (!(line = reader.readLine()).equals("exit")) { // Прерывание цикла при написании строки exit
-                    writter.write(line);
-                }
-            }
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
+
+            System.out.println("___________________________\nВведите номер ключа:");
+            bufferedWriter.append(encodeAndDecode.bruteForce(line));
+            bufferedWriter.flush();
+            return true;
         }catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
         }

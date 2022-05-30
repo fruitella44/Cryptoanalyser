@@ -71,7 +71,6 @@ public class EncodeAndDecode {
             outputText[key] = String.valueOf(decodeText);
         }
 
-//        return outputText.toString();
-        return "brute";
+         return outputText.toString();
     }
 }
