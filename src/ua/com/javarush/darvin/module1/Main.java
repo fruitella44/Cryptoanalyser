@@ -36,7 +36,7 @@ public class Main {
                     System.out.println("___________________________\nУкажите путь к файлу:");
                     scannerDecode();
                 } else if (input == 3) {
-                    //System.out.println("___________________________\nУкажите путь к файлу:");
+                    System.out.println("___________________________\nУкажите путь к файлу:");
                     scannerBruteForce();
                 } else if (input == 0) {
                     System.out.println("Выход!\n___________________________");
@@ -98,7 +98,6 @@ public class Main {
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(String.valueOf(writeFile)))) {
 
-            System.out.println("___________________________\nВведите номер ключа:");
             bufferedWriter.append(encodeAndDecode.bruteForce(line));
             bufferedWriter.flush();
             return true;

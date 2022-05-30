@@ -1,7 +1,5 @@
 package ua.com.javarush.darvin.module1;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,9 +12,8 @@ public class EncodeAndDecode {
     private String[] outputText;
     private List<Character> listAlphabet;
 
-    StringBuilder encode(String line, int key) throws IOException {
+    StringBuilder encode(String line, int key) {
         StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
-
         StringBuilder outputText = new StringBuilder();
 
         for (int i = 0; i < inputText.length(); i++) {
@@ -31,7 +28,6 @@ public class EncodeAndDecode {
 
     StringBuilder decode(String line, int key) {
         StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
-
         StringBuilder outputText = new StringBuilder();
 
         for (int i = 0; i < inputText.length(); i++) {
@@ -56,14 +52,16 @@ public class EncodeAndDecode {
     }
 
     String bruteForce(String line) {
-        char[] inputText = line.toLowerCase().toCharArray();
+        StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
+        String str = inputText.toString();
+        char[] chars = str.toCharArray();
 
         for (int key = 0; key < charAlphabet.length; key++) {
-            decodeText = new char[inputText.length];
+            decodeText = new char[chars.length];
 
-            for (int i = 0; i < inputText.length; i++) {
-                if (inputText[i] != ' ') {
-                    decodeText[i] = charAlphabet[listAlphabet.indexOf(inputText[i] + key) % charAlphabet.length];
+            for (int i = 0; i < chars.length; i++) {
+                if (chars[i] != ' ') {
+                    decodeText[i] = charAlphabet[listAlphabet.indexOf(chars[i] + key) % charAlphabet.length];
                 } else {
                     decodeText[i] = ' ';
                 }
