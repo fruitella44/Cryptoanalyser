@@ -51,11 +51,12 @@ public class EncodeAndDecode {
         outputText = new String[charAlphabet.length];
     }
 
-    String bruteForce(String line) {
+    StringBuilder bruteForce(String line) {
         StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
         String str = inputText.toString();
         char[] chars = str.toCharArray();
 
+        StringBuilder output = new StringBuilder();
         for (int key = 0; key < charAlphabet.length; key++) {
             decodeText = new char[chars.length];
 
@@ -67,8 +68,10 @@ public class EncodeAndDecode {
                 }
             }
             outputText[key] = String.valueOf(decodeText);
+            output.append(outputText);
+
         }
 
-         return outputText.toString();
+        return output;
     }
 }

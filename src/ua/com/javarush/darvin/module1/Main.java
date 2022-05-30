@@ -15,7 +15,7 @@ public class Main {
 
     }
 
-    private int scannerInt() throws InputMismatchException {
+    private int scannerInt() {
         Scanner console = new Scanner(System.in);
 
         System.out.println("Запуск программы!\n___________________________");
@@ -45,7 +45,7 @@ public class Main {
                     start = false;
                 }
             }
-        } catch (Exception exception) {
+        } catch (InputMismatchException exception) {
             System.out.println("Требуется ввести число!");
         }
         return input;
