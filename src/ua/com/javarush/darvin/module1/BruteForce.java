@@ -30,7 +30,6 @@ public class BruteForce {
         while (key > 0 && key < 43) {
 
             for (int i = 0; i < inputText.length(); i++) {
-
                 int index = ALPHABET.indexOf(inputText.charAt(i));
                 int shiftIndexBack = (index - key) % 43;
 
@@ -39,16 +38,18 @@ public class BruteForce {
                 }
 
                 char newChars = ALPHABET.charAt(shiftIndexBack);
-                outputText.append(newChars).toString().split(".,«»\":!? ");
+                outputText.append(newChars);
             }
-            key++;
-            
-            for (String word : famousWords) {
+
+            String[] splitString = outputText.toString().split("[\\p{P} \\t\\n\\r]");
+
+            for (String word : splitString) {
                 if (getFamousWords().contains(word)) {
                     return outputText;
-                } else { return null; }
-                
+                }
             }
+            key++;
+            outputText = new StringBuilder();
         }
 
         return outputText;
