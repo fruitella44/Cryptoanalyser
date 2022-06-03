@@ -2,53 +2,60 @@ package ua.com.javarush.darvin.module1;
 
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     private static boolean start = true;
+    private static final String RUN = "Запуск программы!";
+    private static final String CLOSE = "Завершение программы!";
+    private static final String OPTIONS = "Выберите действие:\n";
+    private static final String OPTIONS_ONE = "1 - шифровка текста\n";
+    private static final String OPTIONS_TWO = "2 - расшифровка текста\n";
+    private static final String OPTIONS_THREE = "3 - расшифровка с помощью brute force\n";
+    private static final String EXIT = "0 - Выход";
+    private static final String ERROR = "Неверная команда!";
+    private static final String STRING_SPACE = "___________________________\n";
 
     public static void main(String[] args) {
-        Main main = new Main();
-        main.scannerInt();
-
+            Main main = new Main();
+            main.inputCommand();
     }
 
-    private int scannerInt() {
-        Scanner console = new Scanner(System.in);
+    private boolean inputCommand() {
+        if (start) {
+            System.out.println(RUN);
+            Scanner command = new Scanner(System.in);
 
-        System.out.println("Запуск программы!\n___________________________");
-        System.out.println("Выберите действие:");
-        System.out.println("1 - шифровка текста");
-        System.out.println("2 - расшифровка текста");
-        System.out.println("3 - расшифровка с помощью brute force");
-        System.out.println("0 - Выход\n___________________________");
+            while (true) {
+                System.out.println(STRING_SPACE + OPTIONS + OPTIONS_ONE + OPTIONS_TWO + OPTIONS_THREE + EXIT);
 
-        int input = console.nextInt();
+                try {
+                    int input = Integer.parseInt(command.nextLine());
 
-        try {
-            if (start) {
-                if (input == 1) {
-                    System.out.println("___________________________\nУкажите путь к файлу:");
-                    scannerEncode();
-                } else if (input == 2) {
-                    System.out.println("___________________________\nУкажите путь к файлу:");
-                    scannerDecode();
-                } else if (input == 3) {
-                    System.out.println("___________________________\nУкажите путь к файлу:");
-                    scannerBruteForce();
-                } else if (input == 0) {
-                    System.out.println("Выход!\n___________________________");
-                } else {
-                    System.out.println("Неверная команда");
-                    start = false;
+                    if (input == 1) {
+                        System.out.println("Укажите путь к файлу:");
+                        scannerEncode();
+                    } else if (input == 2) {
+                        System.out.println("Укажите путь к файлу:");
+                        scannerDecode();
+                    } else if (input == 3) {
+                        System.out.println("Укажите путь к файлу:");
+                        scannerBruteForce();
+                    } else if (input == 0) {
+                        System.out.println(CLOSE + STRING_SPACE);
+                        break;
+                    } else {
+                        System.out.println(ERROR);
+                    }
+
+                } catch (InputMismatchException exception) {
+                    System.out.println("Требуется ввести число! " + exception);
                 }
             }
-        } catch (InputMismatchException exception) {
-            System.out.println("Требуется ввести число! " + exception);
         }
-        return input;
+
+        return start = false;
     }
 
     private static boolean scannerEncode() {
@@ -56,9 +63,9 @@ public class Main {
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\Coding\\Java\\javarush-cryptoanalyser\\outputText.txt"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("outputText.txt"))) {
 
-            System.out.println("___________________________\nВведите номер ключа:");
+            System.out.println("Введите номер ключа:");
             bufferedWriter.append(encrypt.encode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
@@ -74,9 +81,9 @@ public class Main {
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("inputText.txt"))) {
 
-            System.out.println("___________________________\nВведите номер ключа:");
+            System.out.println("Введите номер ключа:");
             bufferedWriter.append(decrypt.decode(line, console.nextInt()));
             bufferedWriter.flush();
             return true;
@@ -92,12 +99,12 @@ public class Main {
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
 
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\Coding\\Java\\javarush-cryptoanalyser\\inputText.txt"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("inputText.txt"))) {
 
             bufferedWriter.append(brute.bruteForce(line, 1));
             bufferedWriter.flush();
             return true;
-        }catch (IOException exception) {
+        } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
         }
 

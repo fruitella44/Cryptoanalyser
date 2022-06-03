@@ -1,9 +1,5 @@
 package ua.com.javarush.darvin.module1;
 
-
-import java.util.Arrays;
-import java.util.List;
-
 public class Decode {
     private static final String ALPHABET  = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,«»\"\\:!? ";
 
@@ -19,8 +15,8 @@ public class Decode {
                 shiftIndexBack = ALPHABET.length() + shiftIndexBack;
             }
 
-            char newChars = ALPHABET.charAt(shiftIndexBack);
-            outputText.append(newChars);
+            char decoding = ALPHABET.charAt(shiftIndexBack);
+            outputText.append(decoding);
 
         }
 
