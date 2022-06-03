@@ -43,7 +43,7 @@ public class Main {
                         System.out.println("Укажите путь к файлу:");
                         scannerBruteForce();
                     } else if (input == 0) {
-                        System.out.println(CLOSE + STRING_SPACE);
+                        System.out.println(CLOSE);
                         break;
                     } else {
                         System.out.println(ERROR);
