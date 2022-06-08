@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class Main {
     private static boolean start = true;
+    private static final String ALPHABET  = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,«»\"\\:!? ";
+
     private static final String RUN = "Запуск программы!";
     private static final String CLOSE = "Завершение программы!";
     private static final String OPTIONS = "Выберите действие:\n";

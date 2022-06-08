@@ -1,12 +1,13 @@
 package ua.com.javarush.darvin.module1;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class BruteForce {
     private static final String ALPHABET  = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,«»\"\\:!? ";
+    private static final int ALPHABET_LENGTH = ALPHABET.length();
+
     private static final String[] FAMOUS_WORDS = {"и", "в", "не", "на", "я", "быть", "он", "с", "что", "а", "по",
             "это", "она", "этот", "к", "но", "они", "мы", "как", "из", "у", "который", "то", "за", "что", "свой",
             "весь", "год", "от", "так", "о", "для", "ты", "же", "все", "тот", "мочь", "вы", "человек", "его", "сказать",
@@ -16,7 +17,7 @@ public class BruteForce {
             "какой", "после", "их", "работа", "без", "самый", "потом", "надо", "хотеть", "ли", "слово", "идти",
             "большой", "должен", "место", "иметь", "ничто"};
 
-    public static final Pattern PATTERN = Pattern.compile("[\\p{P} \\t\\n\\r]");
+    public static final Pattern SPLIT_STRING = Pattern.compile("[\\p{P} \\t\\n\\r]");
 
     public static List<String> getFamousWords() {
         return Arrays.asList(FAMOUS_WORDS);
@@ -26,11 +27,11 @@ public class BruteForce {
         StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
         StringBuilder outputText = new StringBuilder();
 
-        while (key > 0 && key < 43) {
+        while (key > 0 && key < ALPHABET_LENGTH) {
 
             for (int i = 0; i < inputText.length(); i++) {
                 int index = ALPHABET.indexOf(inputText.charAt(i));
-                int shiftIndexBack = (index - key) % 43;
+                int shiftIndexBack = (index - key) % ALPHABET_LENGTH;
 
                 if (shiftIndexBack < 0) {
                     shiftIndexBack = ALPHABET.length() + shiftIndexBack;
@@ -40,9 +41,9 @@ public class BruteForce {
                 outputText.append(decoding);
             }
 
-            String[] splitString = outputText.toString().split(PATTERN.toString());
+            String[] words = outputText.toString().split(SPLIT_STRING.toString());
 
-            for (String word : splitString) {
+            for (String word : words) {
                 if (getFamousWords().contains(word)) {
                     return outputText;
                 }
