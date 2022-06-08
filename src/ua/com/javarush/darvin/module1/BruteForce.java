@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 public class BruteForce {
     private static final String ALPHABET  = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя.,«»\"\\:!? ";
-    private static final int ALPHABET_LENGTH = ALPHABET.length();
 
     private static final String[] FAMOUS_WORDS = {"и", "в", "не", "на", "я", "быть", "он", "с", "что", "а", "по",
             "это", "она", "этот", "к", "но", "они", "мы", "как", "из", "у", "который", "то", "за", "что", "свой",
@@ -27,11 +26,11 @@ public class BruteForce {
         StringBuilder inputText = new StringBuilder(Main.readFile(line).toString().toLowerCase());
         StringBuilder outputText = new StringBuilder();
 
-        while (key > 0 && key < ALPHABET_LENGTH) {
+        while (key > 0 && key < ALPHABET.length()) {
 
             for (int i = 0; i < inputText.length(); i++) {
                 int index = ALPHABET.indexOf(inputText.charAt(i));
-                int shiftIndexBack = (index - key) % ALPHABET_LENGTH;
+                int shiftIndexBack = (index - key) % ALPHABET.length();
 
                 if (shiftIndexBack < 0) {
                     shiftIndexBack = ALPHABET.length() + shiftIndexBack;
