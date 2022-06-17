@@ -36,13 +36,13 @@ public class Main {
 
                     if (input == 1) {
                         System.out.println("Укажите путь к файлу:");
-                        write.scannerEncode();
+                        write.encode();
                     } else if (input == 2) {
                         System.out.println("Укажите путь к файлу:");
-                        write.scannerDecode();
+                        write.decode();
                     } else if (input == 3) {
                         System.out.println("Укажите путь к файлу:");
-                        write.scannerBruteForce();
+                        write.bruteForce();
                     } else if (input == 0) {
                         System.out.println(CLOSE);
                         break;

@@ -23,7 +23,7 @@ public class ReadAndWrite {
         return builder;
     }
 
-    public boolean scannerEncode() {
+    public boolean encode() {
         Encode encrypt = new Encode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
@@ -41,7 +41,7 @@ public class ReadAndWrite {
         return false;
     }
 
-    public boolean scannerDecode() {
+    public boolean decode() {
         Decode decrypt = new Decode();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
@@ -59,7 +59,7 @@ public class ReadAndWrite {
         return false;
     }
 
-    public boolean scannerBruteForce() {
+    public boolean bruteForce() {
         BruteForce brute = new BruteForce();
         Scanner console = new Scanner(System.in);
         String line = console.nextLine();
