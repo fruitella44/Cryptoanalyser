@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class BruteForce extends Alphabet {
 
-    ReadAndWrite read = new ReadAndWrite();
+    private ReadAndWrite read = new ReadAndWrite();
     private static final String[] FAMOUS_WORDS = {"и", "в", "не", "на", "я", "быть", "он", "с", "что", "а", "по",
             "это", "она", "этот", "к", "но", "они", "мы", "как", "из", "у", "который", "то", "за", "что", "свой",
             "весь", "год", "от", "так", "о", "для", "ты", "же", "все", "тот", "мочь", "вы", "человек", "его", "сказать",
@@ -16,7 +16,7 @@ public class BruteForce extends Alphabet {
             "какой", "после", "их", "работа", "без", "самый", "потом", "надо", "хотеть", "ли", "слово", "идти",
             "большой", "должен", "место", "иметь", "ничто"};
 
-    public static final Pattern SPLIT_STRING = Pattern.compile("[\\p{P} \\t\\n\\r]");
+    public static final Pattern REMOVE_PUNCTUATIONS = Pattern.compile("[\\p{P} \\t\\n\\r]");
 
 
     public static List<String> getFamousWords() {
@@ -41,7 +41,7 @@ public class BruteForce extends Alphabet {
                 outputText.append(decoding);
             }
 
-            String[] words = outputText.toString().split(SPLIT_STRING.toString());
+            String[] words = outputText.toString().split(REMOVE_PUNCTUATIONS.toString());
 
             for (String word : words) {
                 if (getFamousWords().contains(word)) {

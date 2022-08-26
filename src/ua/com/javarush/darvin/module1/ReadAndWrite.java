@@ -36,9 +36,8 @@ public class ReadAndWrite {
             return true;
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
+            return false;
         }
-
-        return false;
     }
 
     public boolean decode() {
@@ -54,9 +53,8 @@ public class ReadAndWrite {
             return true;
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
+            return false;
         }
-
-        return false;
     }
 
     public boolean bruteForce() {
@@ -71,9 +69,9 @@ public class ReadAndWrite {
             return true;
         } catch (IOException exception) {
             System.out.println("Не удалось прочитать текст " + exception);
+            return false;
         }
 
-        return false;
     }
 
 }
