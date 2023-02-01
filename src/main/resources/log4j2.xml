@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration status="info">
+
+    <Appenders>
+        <RollingFile name="RollingFile" filename="/home/fruitella/dev_java/Cryptoanalyser/src/main/resources/applicationLogs/appLog.log"
+                     filepattern="${logPath}/%d{YYYY-MM-dd HH:mm:ss}-appLog.log">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

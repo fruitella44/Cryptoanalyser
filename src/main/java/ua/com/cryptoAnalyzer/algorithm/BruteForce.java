@@ -1,12 +1,26 @@
-package ua.com.javarush.darvin.module1;
+package ua.com.cryptoAnalyzer.algorithm;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ua.com.cryptoAnalyzer.Alphabet;
+import ua.com.cryptoAnalyzer.file.Write;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class BruteForce extends Alphabet {
-
-    ReadAndWrite read = new ReadAndWrite();
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+public class BruteForce extends Alphabet implements Algorithm {
+    private static final Logger LOGGER = LogManager.getLogger(BruteForce.class);
+    private Write write = new Write();
+    private Decode decrypt = new Decode();
     private static final String[] FAMOUS_WORDS = {"и", "в", "не", "на", "я", "быть", "он", "с", "что", "а", "по",
             "это", "она", "этот", "к", "но", "они", "мы", "как", "из", "у", "который", "то", "за", "что", "свой",
             "весь", "год", "от", "так", "о", "для", "ты", "же", "все", "тот", "мочь", "вы", "человек", "его", "сказать",
@@ -16,43 +30,37 @@ public class BruteForce extends Alphabet {
             "какой", "после", "их", "работа", "без", "самый", "потом", "надо", "хотеть", "ли", "слово", "идти",
             "большой", "должен", "место", "иметь", "ничто"};
 
-    public static final Pattern SPLIT_STRING = Pattern.compile("[\\p{P} \\t\\n\\r]");
-
+    public static final Pattern IGNORE_PUNCTUATION = Pattern.compile("[\\p{P} \\t\\n\\r]");
 
     public static List<String> getFamousWords() {
+        LOGGER.info("Famous words added to Collection");
         return Arrays.asList(FAMOUS_WORDS);
     }
 
-    public StringBuilder bruteForce(String line, int key) {
-        StringBuilder inputText = new StringBuilder(read.readFile(line).toString().toLowerCase());
+
+    @Override
+    public StringBuilder algorithm(String line, int key) {
         StringBuilder outputText = new StringBuilder();
 
         while (key > 0 && key < getALPHABET().length()) {
+            outputText.append(decrypt.algorithm(line, key));
+            LOGGER.debug("Use decrypt algorithm,, using key: " + key);
 
-            for (int i = 0; i < inputText.length(); i++) {
-                int index = getALPHABET().indexOf(inputText.charAt(i));
-                int shiftIndexBack = (index - key) % getALPHABET().length();
-
-                if (shiftIndexBack < 0) {
-                    shiftIndexBack = getALPHABET().length() + shiftIndexBack;
-                }
-
-                char decoding = getALPHABET().charAt(shiftIndexBack);
-                outputText.append(decoding);
-            }
-
-            String[] words = outputText.toString().split(SPLIT_STRING.toString());
+            String[] words = outputText.toString().split(IGNORE_PUNCTUATION.toString());
+            LOGGER.debug("Split words and remove punctuation");
 
             for (String word : words) {
                 if (getFamousWords().contains(word)) {
+                    LOGGER.debug("Word has found in Collection");
                     return outputText;
                 }
             }
+
             key++;
             outputText = new StringBuilder();
         }
 
+        LOGGER.debug("Text wrote successful");
         return outputText;
     }
-
 }
